@@ -1,5 +1,5 @@
 ##obtain m6A peak splitted by exon
-f1 <- "./m6APeak_CTL.csv"
+f1 <- "./m6APeak_HeLa.csv"
 m6Apeak_CTL <- read.csv(f1,header = T)
 fa <- "./Mod.bed"
 all_m6Apeakbed <-  read.table(fa,sep="\t",header=FALSE,stringsAsFactors =FALSE)
