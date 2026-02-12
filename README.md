@@ -60,3 +60,7 @@ high_m6Asites <- HeLa_m6Asites[grep('Very high confidence',HeLa_m6Asites$Classif
 load("./peak_exon_region.Rdata")
 m6Asites_infor <- get_m6Asites_infor(high_m6Asites=high_m6Asites,peak_infor=obtain_peak_exon)
 ```
+## Integrate Multi-omics data to select potential m6A sites with regulating translation efficiency (m6A-reg-TE)
+```r
+#Mapping single-base m6A sites to YTHDF1 binding region
+```
