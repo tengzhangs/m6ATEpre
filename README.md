@@ -35,11 +35,18 @@ GTF_file <- "./hg19_gtf/genes.gtf"
 library(GenomicFeatures)
 obtain_peak_exon <- map_peak_TX(peak_sites_infor=all_m6Apeakbed,annotation_file=GTF_file)
 ```
-## Processing the sequences obtained from m6A peaks
+## Obtain single-base m6A sites
 ### Obtain m6A peaks' sequences with DRACH motif
 ```r
 library(BSgenome.Hsapiens.UCSC.hg19)
 library(Biostrings)
 genome <- BSgenome.Hsapiens.UCSC.hg19
 getpeaks_seq <- get_peak_seq(peaks = obtain_peak_exon[[1]])
+writeXStringSet(getpeaks_seq,"./motif_peak_seq.fa")
+```
+### Obtain m6A sites in single-base resulation
+```
+conda activate R3.6
+cd ./sramp_simple/
+nohup perl runsramp.pl ./motif_peak_seq.fa ./singlebase_m6Asites.txt mature &
 ```
