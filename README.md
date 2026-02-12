@@ -74,3 +74,14 @@ Y1KD_TEup <- Y1TE_change[which(Y1TE_change$`Translation efficiency`>(-0.5)),]
 m6A_reg_TE_sites <- m6Asites2DF1[which(!is.na(match(select_m6A_sites$gene_name,Y1TE_down$`Gene symbol`))),]
 non_m6A_reg_TE_sites <- m6Asites2DF1[which(!is.na(match(select_m6A_sites$gene_name,Y1KD_TEup$`Gene symbol`))),]
 ```
+## Obtain the sequences both for m6A-reg-TE sites and non-m6A-reg-TE sites
+```r
+library(m6ALogisticModel)
+library(BSgenome.Hsapiens.UCSC.hg19)
+library(Biostrings)
+library(GenomicFeatures)
+annotation_file <- "D:\\hg19_GTF\\genes.gtf"
+m6A_reg_TE_sites_seq <- get_m6A_seq(target_sites=m6A_reg_TE_sites,annotation_file)
+non_m6A_reg_TE_sites_seq <- get_m6A_seq(target_sites=non_m6A_reg_TE_sites,annotation_file)
+
+```
