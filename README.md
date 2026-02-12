@@ -56,4 +56,7 @@ f1 <- "./singlebase_m6Asites.txt"
 Human_m6Asites <- read.delim2(f1)
 HeLa_m6Asites <- Human_m6Asites[-grep("Non-m6A site",Human_m6Asites$Classification),]
 high_m6Asites <- HeLa_m6Asites[grep('Very high confidence',HeLa_m6Asites$Classification),]
+#Get the single-base m6A sites information (including the seqnames, start sites and strand)
+load("./peak_exon_region.Rdata")
+m6Asites_infor <- get_m6Asites_infor(high_m6Asites=high_m6Asites,peak_infor=obtain_peak_exon)
 ```
