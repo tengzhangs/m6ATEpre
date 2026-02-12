@@ -1,5 +1,5 @@
 load("./peak_exon_region.Rdata")
-get_m6Asites_infor <- function(high_m6Asites,peak_infor)
+get_m6Asites_infor <- function(high_m6Asites,peak_infor){
 peak_sites <- obtain_peak_exon[[1]]
 peak_gene_infor <- obtain_peak_exon[[2]]
 new_peakID <- intersect(names(peak_sites),high_m6Asites$Seq_ID)
