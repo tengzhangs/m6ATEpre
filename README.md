@@ -50,3 +50,10 @@ conda activate R3.6
 cd ./sramp_simple/
 nohup perl runsramp.pl ./motif_peak_seq.fa ./singlebase_m6Asites.txt mature &
 ```
+```r
+#Select the high confidience m6A sites in single-base resulation
+f1 <- "./singlebase_m6Asites.txt"
+Human_m6Asites <- read.delim2(f1)
+HeLa_m6Asites <- Human_m6Asites[-grep("Non-m6A site",Human_m6Asites$Classification),]
+high_m6Asites <- HeLa_m6Asites[grep('Very high confidence',HeLa_m6Asites$Classification),]
+```
