@@ -6,7 +6,7 @@ library(BSgenome.Hsapiens.UCSC.hg19)
 library(Biostrings)
 library(GenomicFeatures)
 annotation_file <- "D:\\hg19_GTF\\genes.gtf"
-get_peak_seq <- function(target_peak_center,annotation_file){
+get_m6A_seq <- function(target_peak_center,annotation_file){
   txdbfile <- GenomicFeatures::makeTxDbFromGFF(annotation_file)
   exbytx_txdb <- exonsBy(txdbfile,by = "tx")
   isoform_ambiguity_method = "longest_tx"
@@ -96,11 +96,11 @@ get_peak_seq <- function(target_peak_center,annotation_file){
   names(peaks_seq) <- new_peakID
   return(peaks_seq )
 }
-pos_peak_seq <- get_peak_seq(target_peak_center=pos_gene_sites,annotation_file=annotation_file)
+pos_peak_seq <- get_m6A_seq(target_peak_center=pos_gene_sites,annotation_file=annotation_file)
 pos_peak_seqs <- as.character(pos_peak_seq)
 names(pos_peak_seqs) <- NULL
 
-neg_peak_seq <- get_peak_seq(target_peak_center=neg_gene_sites,annotation_file=annotation_file)
+neg_peak_seq <- get_m6A_seq(target_peak_center=neg_gene_sites,annotation_file=annotation_file)
 neg_peak_seqs <- as.character(neg_peak_seq)
 names(neg_peak_seqs) <- NULL
 
