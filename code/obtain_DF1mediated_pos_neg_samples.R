@@ -10,7 +10,7 @@ new_peakID <- intersect(names(peak_sites),high_m6Asites$Seq_ID)
 peakID_genename <- peak_gene_infor[,c(4,ncol(peak_gene_infor))]
 
 new_peaksites <- peak_sites[which(!is.na(match(names(peak_sites),new_peakID)))]
-m6A_sites_peak <- data.frame()
+m6A_sites_infor <- data.frame()
 
 for (i in 1:length(new_peakID)) {
   one_match_peak <- new_peaksites[which(!is.na(match(names(new_peaksites),new_peakID[i])))]
@@ -34,7 +34,7 @@ for (i in 1:length(new_peakID)) {
   one_genename <- unique(peakID_genename[which(!is.na(match(peakID_genename$peak_ID,new_peakID[i]))),]$name)
   onem6A_infor <- data.frame(peaknum=as.character(names(one_match_peak)),seqnames=seq_name,
                              start=m6A_start_sites,width=1,strand=seq_strand,gene_name=one_genename)
-  m6A_sites_peak <- rbind(m6A_sites_peak,onem6A_infor)
+  m6A_sites_infor <- rbind(m6A_sites_infor,onem6A_infor)
 }
 
 ###map YTHDF1 binding sites to m6A peak in exon 
