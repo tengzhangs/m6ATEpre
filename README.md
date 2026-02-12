@@ -63,4 +63,8 @@ m6Asites_infor <- get_m6Asites_infor(high_m6Asites=high_m6Asites,peak_infor=obta
 ## Integrate Multi-omics data to select potential m6A sites with regulating translation efficiency (m6A-reg-TE)
 ```r
 #Mapping single-base m6A sites to YTHDF1 binding region
+f1 <- "./DF1_bind_gene_site.csv"
+DF1binding_sites <- read.csv(f1)
+m6Asites2_DF1binding_region(m6A_sites=m6Asites_infor,DF1binding_sites=DF1binding_sites)
+#Select single-base m6A sites with DF1 binding 
 ```
