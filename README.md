@@ -65,6 +65,12 @@ m6Asites_infor <- get_m6Asites_infor(high_m6Asites=high_m6Asites,peak_infor=obta
 #Mapping single-base m6A sites to YTHDF1 binding region
 f1 <- "./DF1_bind_gene_site.csv"
 DF1binding_sites <- read.csv(f1)
-m6Asites2_DF1binding_region(m6A_sites=m6Asites_infor,DF1binding_sites=DF1binding_sites)
-#Select single-base m6A sites with DF1 binding 
+m6Asites2DF1 <- m6Asites2_DF1binding_region(m6A_sites=m6Asites_infor,DF1binding_sites=DF1binding_sites)
+#Select potential m6A-reg-TE sites from single-base m6A sites with DF1 binding
+f2 <- "D:\\research\\m6Atranslation\\data\\Y1_TE_change.xlsx"
+Y1TE_change <- readxl::read_xlsx(f2)
+Y1TE_down <- Y1TE_change[which(Y1TE_change$`Translation efficiency`<(-0.5)),]
+Y1KD_TEup <- Y1TE_change[which(Y1TE_change$`Translation efficiency`>(-0.5)),]
+m6A_reg_TE_sites <- m6Asites2DF1[which(!is.na(match(select_m6A_sites$gene_name,Y1TE_down$`Gene symbol`))),]
+non_m6A_reg_TE_sites <- m6Asites2DF1[which(!is.na(match(select_m6A_sites$gene_name,Y1KD_TEup$`Gene symbol`))),]
 ```
