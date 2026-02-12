@@ -4,7 +4,7 @@ The most prevalent mRNA modification, N6-methyladenosine (m6A) plays an importan
 # The step-by-step usage example
 ## Peak calling for MeRIP-seq data
 For MeRIP-seq data, we first used the exomPeak2 software to detect the m6A peak region.
-'''r
+```r
 library(exomePeak2)
 f1 <- "./CTL_IP1.bam"
 f2 <- "./CTL_IP2.bam"
@@ -20,9 +20,9 @@ exomePeak2(bam_ip = IP_BAM,
            gff_dir = GENE_ANNO_GTF,
            genome = "hg19",
            paired_end = FALSE)
-'''
+```
 ### Mapping m6A peak to transcriptome 
-'''r
+```r
 m6Apeak_CTL <- read.csv(f1,header = T)
 fa <- "./Mod.bed"
 all_m6Apeakbed <-  read.table(fa,sep="\t",header=FALSE,stringsAsFactors =FALSE)
@@ -34,9 +34,12 @@ colnames(all_m6Apeakbed) <- c("chr",         "start" ,      "end",         "name
 GTF_file <- "./hg19_gtf/genes.gtf"
 library(GenomicFeatures)
 obtain_peak_exon <- map_peak_TX(peak_sites_infor=all_m6Apeakbed,annotation_file=GTF_file)
-'''
+```
 ## Processing the sequences obtained from m6A peaks
 ### Obtain m6A peaks' sequences with DRACH motif
-'''r
-
-'''
+```r
+library(BSgenome.Hsapiens.UCSC.hg19)
+library(Biostrings)
+genome <- BSgenome.Hsapiens.UCSC.hg19
+getpeaks_seq <- get_peak_seq(peaks = obtain_peak_exon[[1]])
+```
