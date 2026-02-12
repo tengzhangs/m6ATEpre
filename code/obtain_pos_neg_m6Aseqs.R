@@ -6,7 +6,7 @@ library(BSgenome.Hsapiens.UCSC.hg19)
 library(Biostrings)
 library(GenomicFeatures)
 annotation_file <- "D:\\hg19_GTF\\genes.gtf"
-get_m6A_seq <- function(target_peak_center,annotation_file){
+get_m6A_seq <- function(target_sites,annotation_file){
   txdbfile <- GenomicFeatures::makeTxDbFromGFF(annotation_file)
   exbytx_txdb <- exonsBy(txdbfile,by = "tx")
   isoform_ambiguity_method = "longest_tx"
@@ -19,10 +19,10 @@ get_m6A_seq <- function(target_peak_center,annotation_file){
   }
   exbytx_txdb <- exbytx_txdb[Kept_tx_indx]
   exbytx_txdb <- exbytx_txdb[countOverlaps(exbytx_txdb,exbytx_txdb) == 1]
-  target_peakGR <- GRanges(seqnames = as.character(target_peak_center$seqnames),
-                           IRanges(start = as.numeric(as.character(target_peak_center$start)),
-                                   width = 1,names=as.character(target_peak_center$peaknum)),
-                           strand = as.character(target_peak_center$strand))
+  target_peakGR <- GRanges(seqnames = as.character(target_sites$seqnames),
+                           IRanges(start = as.numeric(as.character(target_sites$start)),
+                                   width = 1,names=as.character(target_sites$peaknum)),
+                           strand = as.character(target_sites$strand))
   target_sites_map <-   mapToTranscripts(target_peakGR, exbytx_txdb,ignore.strand=F)
   target_tx <- exbytx_txdb[target_sites_map$transcriptsHits]
   select_target_GR <- target_peakGR[target_sites_map$xHits]
@@ -96,11 +96,11 @@ get_m6A_seq <- function(target_peak_center,annotation_file){
   names(peaks_seq) <- new_peakID
   return(peaks_seq )
 }
-pos_peak_seq <- get_m6A_seq(target_peak_center=pos_gene_sites,annotation_file=annotation_file)
+pos_peak_seq <- get_m6A_seq(target_sites=pos_gene_sites,annotation_file=annotation_file)
 pos_peak_seqs <- as.character(pos_peak_seq)
 names(pos_peak_seqs) <- NULL
 
-neg_peak_seq <- get_m6A_seq(target_peak_center=neg_gene_sites,annotation_file=annotation_file)
+neg_peak_seq <- get_m6A_seq(target_sites=neg_gene_sites,annotation_file=annotation_file)
 neg_peak_seqs <- as.character(neg_peak_seq)
 names(neg_peak_seqs) <- NULL
 
