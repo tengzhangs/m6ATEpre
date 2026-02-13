@@ -83,5 +83,7 @@ library(GenomicFeatures)
 annotation_file <- "D:\\hg19_GTF\\genes.gtf"
 m6A_reg_TE_sites_seq <- get_m6A_seq(target_sites=m6A_reg_TE_sites,annotation_file)
 non_m6A_reg_TE_sites_seq <- get_m6A_seq(target_sites=non_m6A_reg_TE_sites,annotation_file)
+pos_m6Asites_seqs <- as.character(m6A_reg_TE_sites_seq)
+names(pos_m6Asites_seqs) <- NULL
 
 ```
