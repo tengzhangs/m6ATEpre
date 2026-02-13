@@ -102,4 +102,9 @@ neg_sites_seq <- cdhit_matched_sitesinfor$neg_m6A_seq
 ```
 ## Obatin DF1 motif vector from m6A sites sequence
 ```r
+pos_neg_DF1motif_vec <- DF1_motif_vec(pos_m6A_seq=pos_sites_seq,neg_m6A_seq=neg_sites_seq)
+pos_DF1motif_vec <- pos_neg_DF1motif_vec$pos_DF1motif_vec
+neg_DF1motif_vec <- pos_neg_DF1motif_vec$neg_DF1motif_vec
+write.csv(pos_DF1motif_vec,file = "./single_base_level/cdhit_proces/pos_motif_vec.csv",row.names = F)
+write.csv(neg_DF1motif_vec,file = "./single_base_level/cdhit_proces/neg_motif_vec.csv",row.names = F)
 ```
