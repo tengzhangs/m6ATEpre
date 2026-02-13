@@ -115,7 +115,7 @@ python autoencoder_embedding.py \
   --neg_path ./single_base_level/cdhit_proces/neg_motif_vec.csv
   --output_path ./pos_neg_embedding/
 ```
-## Predicted m6A-reg-TE sites by m6ATEpre model
+## Predicting m6A-reg-TE sites by m6ATEpre model
 ```python
 python m6ATEpre.py \
   --embeedding_feat ./pos_neg_embedding.csv
