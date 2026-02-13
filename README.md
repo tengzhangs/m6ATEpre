@@ -108,3 +108,10 @@ neg_DF1motif_vec <- pos_neg_DF1motif_vec$neg_DF1motif_vec
 write.csv(pos_DF1motif_vec,file = "./single_base_level/cdhit_proces/pos_motif_vec.csv",row.names = F)
 write.csv(neg_DF1motif_vec,file = "./single_base_level/cdhit_proces/neg_motif_vec.csv",row.names = F)
 ```
+## Obtain the embeddings for positive and negative samples by autoencoder
+```python
+python autoencoder_embedding.py \
+  --pos_path ./single_base_level/cdhit_proces/pos_motif_vec.csv
+  --neg_path ./single_base_level/cdhit_proces/neg_motif_vec.csv
+  --output_path ./pos_neg_embedding/
+```
