@@ -7,6 +7,8 @@ import numpy as np
 import pandas as pd
 from keras.layers import Input, Dense
 from keras.models import Model
+import argparse  # 仅新增：用于命令行传参
+import os        # 仅新增：用于创建输出目录
 
 def get_embedding_by_autoencoder(data_np, encoding_dim=100, epochs=100, batch_size=32, validation_split=0.3):
     """
@@ -35,37 +37,28 @@ def get_embedding_by_autoencoder(data_np, encoding_dim=100, epochs=100, batch_si
     encoded_data = encoder.predict(data_np)
     return encoded_data
 
+if __name__ == "__main__":
+ 
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--pos_path', default='./single_base_level/cdhit_proces/pos_motif_vec.csv')
+    parser.add_argument('--neg_path', default='./single_base_level/cdhit_proces/neg_motif_vec.csv')
+    parser.add_argument('--output_path', default='./embedding_output/')  
+    args = parser.parse_args()
 
-# 1. read  samples
-pos_data = pd.read_csv(
-    "./single_base_level/cdhit_proces/pos_motif_vec.csv",
-    header=None
-)
-pos_datas = pos_data.to_numpy()  
+    pos_data = pd.read_csv(args.pos_path, header=None)
+    pos_datas = pos_data.to_numpy()  
 
-neg_data = pd.read_csv(
-    "./single_base_level/cdhit_proces/neg_motif_vec.csv",
-    header=None
-)
-neg_datas = neg_data.to_numpy()  
-# 2. obtain embedding for postive samples
-pos_encoded_data = get_embedding_by_autoencoder(pos_datas)  # embedding for postive samples
+    neg_data = pd.read_csv(args.neg_path, header=None)
+    neg_datas = neg_data.to_numpy()  
 
-neg_encoded_data = get_embedding_by_autoencoder(neg_datas)  # embedding for negative samples
+    pos_encoded_data = get_embedding_by_autoencoder(pos_datas)
+    neg_encoded_data = get_embedding_by_autoencoder(neg_datas)
 
-# 3. save embedding for postive and negative samples
-# save embedding for postive
-pos_motif_encoded = pd.DataFrame(pos_encoded_data)
-pos_motif_encoded.to_csv(
-    './single_base_level/cdhit_proces/pos_motif_encoded.csv',
-    index=False,
-    header=False
-)
-
-# save embedding for negative
-neg_motif_encoded = pd.DataFrame(neg_encoded_data)
-neg_motif_encoded.to_csv(
-    './single_base_level/cdhit_proces/neg_motif_encoded.csv',
-    index=False,
-    header=False
-)
+    pos_motif_encoded = pd.DataFrame(pos_encoded_data)
+    neg_motif_encoded = pd.DataFrame(neg_encoded_data)
+  
+    os.makedirs(args.output_path, exist_ok=True) 
+    combined_emb = np.vstack([pos_encoded_data, neg_encoded_data])
+ 
+    combined_csv_path = os.path.join(args.output_path, 'embedding.csv')
+    pd.DataFrame(combined_emb).to_csv(combined_csv_path, index=False, header=False)
