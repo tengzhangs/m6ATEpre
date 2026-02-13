@@ -38,13 +38,13 @@ def get_embedding_by_autoencoder(data_np, encoding_dim=100, epochs=100, batch_si
 
 # 1. read  samples
 pos_data = pd.read_csv(
-    "F:\\m6A_translation\\dataset\\HeLa_cell\\data\\single_base_level\\new_pos_neg_samples\\cdhit_proces\\pos_motif_vec.csv",
+    "./single_base_level/cdhit_proces/pos_motif_vec.csv",
     header=None
 )
 pos_datas = pos_data.to_numpy()  
 
 neg_data = pd.read_csv(
-    "F:\\m6A_translation\\dataset\\HeLa_cell\\data\\single_base_level\\new_pos_neg_samples\\cdhit_proces\\neg_motif_vec.csv",
+    "./single_base_level/cdhit_proces/neg_motif_vec.csv",
     header=None
 )
 neg_datas = neg_data.to_numpy()  
@@ -57,7 +57,7 @@ neg_encoded_data = get_embedding_by_autoencoder(neg_datas)  # embedding for nega
 # save embedding for postive
 pos_motif_encoded = pd.DataFrame(pos_encoded_data)
 pos_motif_encoded.to_csv(
-    'F:\\m6A_translation\\dataset\\HeLa_cell\\data\\single_base_level\\cdhit_proces\\pos_motif_encoded.csv',
+    './single_base_level/cdhit_proces/pos_motif_encoded.csv',
     index=False,
     header=False
 )
@@ -65,7 +65,7 @@ pos_motif_encoded.to_csv(
 # save embedding for negative
 neg_motif_encoded = pd.DataFrame(neg_encoded_data)
 neg_motif_encoded.to_csv(
-    'F:\\m6A_translation\\dataset\\HeLa_cell\\data\\single_base_level\\cdhit_proces\\neg_motif_encoded.csv',
+    './single_base_level/cdhit_proces/neg_motif_encoded.csv',
     index=False,
     header=False
 )
