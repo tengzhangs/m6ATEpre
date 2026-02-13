@@ -84,6 +84,12 @@ annotation_file <- "D:\\hg19_GTF\\genes.gtf"
 m6A_reg_TE_sites_seq <- get_m6A_seq(target_sites=m6A_reg_TE_sites,annotation_file)
 non_m6A_reg_TE_sites_seq <- get_m6A_seq(target_sites=non_m6A_reg_TE_sites,annotation_file)
 pos_m6Asites_seqs <- as.character(m6A_reg_TE_sites_seq)
-names(pos_m6Asites_seqs) <- NULL
-
+names(pos_m6Asites_seqs) <-  paste0('site_',1:length(pos_m6Asites_seqs))
+neg_m6Asites_seqs <- as.character(non_m6A_reg_TE_sites_seq)
+names(neg_m6Asites_seqs) <- paste0("site_",(length(pos_m6Asites_seqs)+1):(length(pos_m6Asites_seqs)+length(neg_m6Asites_seqs)))
+m6Asites_seq <- c(neg_m6Asites_seqs,neg_m6Asites_seqs)
+writeXStringSet(m6Asites_seq,"./allm6A_seqs.fasta")
+##CD-Hit processing for m6A sites sequences
+cd cdhit-4.8.1/
+./cd-hit -i ./allm6A_seqs.fasta -o ./pos_neg_samples/seq-out.fasta -c 0.9 -T 4 -n 4
 ```
