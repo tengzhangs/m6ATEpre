@@ -92,4 +92,12 @@ writeXStringSet(m6Asites_seq,"./allm6A_seqs.fasta")
 ##CD-Hit processing for m6A sites sequences
 cd cdhit-4.8.1/
 ./cd-hit -i ./allm6A_seqs.fasta -o ./pos_neg_samples/seq-out.fasta -c 0.9 -T 4 -n 4
+```r
+##select m6A sites sequence after CD-Hit processing
+library(Biostrings)
+seqdata <- readBStringSet("./pos_neg_samples/seq_out.fasta")
+pos_seq <- m6A_reg_TE_sites_seq[which(!is.na(match(names(pos_peak_seq),names(seqdata))))]
+neg_seq <- non_m6A_reg_TE_sites_seq[which(!is.na(match(names(neg_peak_seq),names(seqdata))))]
+process_m6Asites_seq <- c(pos_seq,neg_seq)
+process_m6A_seq <- list(pos_m6A_seq=pos_seq,neg_m6A_seq=neg_seq)
 ```
