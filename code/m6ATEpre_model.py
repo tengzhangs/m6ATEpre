@@ -39,8 +39,8 @@ def train_mlp_kfold(
 ):
     try:
         # read features and label
-        feat_df = pd.read_csv(feat_path, header=None if 'csv' in feat_path else 0)  
-        label_df = pd.read_csv(label_path, header=None if 'csv' in label_path else 0)
+        feat_df = pd.read_csv(feat_path)  
+        label_df = pd.read_csv(label_path)
   
         candidate_gene_feat = feat_df.copy()
         candidate_gene_feat['label'] = label_df.values  
